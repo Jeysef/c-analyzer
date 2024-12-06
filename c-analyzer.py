@@ -169,7 +169,7 @@ class BaseAnalyzer:
         """Compile the source code and capture compilation log."""
         result = CompilationResult(stdout='', stderr='', success=False)
         try:
-            name = os.path.basename(self.executable)
+            name = self.executable
             compile_command = self.config['compiler']['cmd'].format(name=name)
             process = subprocess.run(compile_command, shell=True,capture_output=True, text=True)
 
