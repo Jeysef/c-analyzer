@@ -24,6 +24,8 @@ Classes:
 - TestRunner: Executes test cases and validates outputs
 
 Usage:
+uv run c-analyzer.py <source_file> [--config <config_file>] [--mode {analyze,test,both}]
+or
 python c-analyzer.py <source_file> [--config <config_file>] [--mode {analyze,test,both}]
 
 Notes:
