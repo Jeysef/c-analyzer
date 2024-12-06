@@ -1,0 +1,86 @@
+
+{
+    "$schema": "../../tests.schema.json",
+    "tests": [
+        {
+            "name": "test validity dat",
+            "command": [
+                "test",
+                "testdata/bitmap1.txt"
+            ],
+            "expected_output": "Valid",
+            "expected_status": 0
+        },
+        {
+            "name": "hline, trivialni obrazek",
+            "command": [
+                "hline",
+                "testdata/bitmap2.txt"
+            ],
+            "expected_output": "2 0 2 4",
+            "expected_status": 0
+        },
+        {
+            "name": "reakce na napovedu",
+            "command": [
+                "--help"
+            ],
+            "expected_output": true,
+            "expected_status": 0
+        },
+        {
+            "name": "reakce na stderr kvuli zadnym argumentum",
+            "command": [],
+            "expected_output": "",
+            "expected_stderr": true,
+            "expected_status": 1
+        },
+        {
+            "name": "reakce na stderr na chybejici jmeno souboru (hline)",
+            "command": [
+                "hline"
+            ],
+            "expected_output": "",
+            "expected_stderr": true,
+            "expected_status": 1
+        },
+        {
+            "name": "reakce na stderr na chybejici jmeno souboru (vline)",
+            "command": [
+                "vline"
+            ],
+            "expected_output": "",
+            "expected_stderr": true,
+            "expected_status": 1
+        },
+        {
+            "name": "reakce na stderr na nepovedeny fopen",
+            "command": [
+                "test",
+                "nonexistent.txt"
+            ],
+            "expected_output": "",
+            "expected_stderr": true,
+            "expected_status": 1
+        },
+        {
+            "name": "reakce na stderr na nepovedenou alokaci",
+            "command": [
+                "test",
+                "huge.txt"
+            ],
+            "expected_output": "",
+            "expected_stderr": true,
+            "expected_status": 1
+        },
+        {
+            "name": "absence pametovych chyb",
+            "preCommand": "valgrind --leak-check=full --error-exitcode=1",
+            "command": [
+                "test",
+                "testdata/bitmap1.txt"
+            ],
+            "expected_status": 0
+        }
+    ]
+}
