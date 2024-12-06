@@ -8,17 +8,23 @@ Description:
 This module contains functions/classes that analyze C code and provide statistics about it.
 
 Functions:
-- function_name_1: Brief description of what function_name_1 does.
-- function_name_2: Brief description of what function_name_2 does.
-- ...
+- main(): Entry point, parses arguments and runs analysis/tests
+- find_config_file(): Locates configuration file in directory
+- _load_config(): Loads and parses JSON configuration
+- _load_schema(): Loads JSON schema for config validation
+- checkHeader(): Validates if file has proper header comment block
+- analyze_functions(): Analyzes function metrics like length and complexity
+- analyze_comments(): Checks comment coverage and uncommented blocks
+- run_tests(): Executes configured test cases
 
 Classes:
-- ClassName1: Brief description of what ClassName1 does.
-- ClassName2: Brief description of what ClassName2 does.
-- ...
+- ConfigParser: Handles loading and validating configuration files
+- BaseAnalyzer: Base class for code analysis with compilation support
+- CodeAnalyzer: Analyzes code style and structure metrics
+- TestRunner: Executes test cases and validates outputs
 
 Usage:
-python c-analyzer.py <source_file> [--config <config_file>]
+python c-analyzer.py <source_file> [--config <config_file>] [--mode {analyze,test,both}]
 
 Notes:
 Any additional notes or information that might be useful for understanding the code.
