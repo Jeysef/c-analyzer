@@ -1,0 +1,43 @@
+{
+    "$schema": "./c-analyzer.schema.json",
+    "compiler": {
+        "cmd": "gcc -std=c11 -Wall -Wextra -DNDEBUG -g -lm {name}.c -o {name}"
+    },
+    "runner": {
+        "cmd": "./{name}"
+    },
+    "analysis": {
+        "penalties": {
+            "long_function": {
+                "msg": "funkce '{}' je prilis dlouha",
+                "threshold": 40
+            },
+            "complex_function": {
+                "msg": "funkce '{}' je extremne slozita!",
+                "threshold": 15
+            },
+            "type_cast": {
+                "msg": "pouziti explicitniho pretypovani",
+                "threshold": 0
+            },
+            "low_comments": {
+                "msg": "nedostatek komentaru",
+                "threshold": 0.2
+            },
+            "uncommented_blocks": {
+                "msg": "velky segment kodu bez komentaru",
+                "threshold": 15
+            },
+            "long_line": {
+                "msg": "obtizne citelny kod, prilis dlouhe radky",
+                "threshold": 100
+            },
+            "no_args": {
+                "msg": "funkce '{}' ma prilis malo parametru (0)",
+                "threshold": 0
+            }
+        }
+    },
+    "tests": {
+    }
+}

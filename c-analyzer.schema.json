@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "description": "Configuration schema for C code analyzer",
+    "required": ["compiler", "runner"],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "JSON schema version"
+        },
+        "compiler": {
+            "type": "object",
+            "required": ["cmd"],
+            "properties": {
+                "cmd": {
+                    "type": "string",
+                    "description": "Compiler command with {name} placeholder for the source file",
+                    "pattern": ".*\\{name\\}.*"
+                }
+            }
+        },
+        "runner": {
+            "type": "object",
+            "required": ["cmd"],
+            "properties": {
+                "cmd": {
+                    "type": "string",
+                    "description": "Command to run the compiled program with {name} placeholder",
+                    "pattern": ".*\\{name\\}.*"
+                }
+            }
+        },
+        "tests": {
+            "type": "object",
+            "description": "Optional test configuration",
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "description": "Path to the test configuration file"
+                },
+                "tests": {
+                    "type": "array",
+                    "description": "Array of test cases",
+                    "items": {
+                        "type": "object",
+                        "required": ["name", "command", "expected_status"],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Test case name"
+                            },
+                            "preCommand": {
+                                "type": "string",
+                                "description": "Optional command to run before the main command"
+                            },
+                            "command": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "description": "Command and its arguments to execute"
+                            },
+                            "expected_output": {
+                                "oneOf": [
+                                    {
+                                        "type": "string",
+                                        "description": "Expected stdout output"
+                                    },
+                                    {
+                                        "type": "boolean",
+                                        "description": "Whether stdout output is expected"
+                                    }
+                                ]
+                            },
+                            "expected_stderr": {
+                                "oneOf": [
+                                    {
+                                        "type": "string",
+                                        "description": "Expected stderr output"
+                                    },
+                                    {
+                                        "type": "boolean",
+                                        "description": "Whether stderr output is expected"
+                                    }
+                                ]
+                            },
+                            "expected_status": {
+                                "type": "integer",
+                                "description": "Expected exit status code"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        "analysis": {
+            "type": "object",
+            "description": "Analysis configuration and thresholds",
+            "properties": {
+                "penalties": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object",
+                        "required": ["msg", "threshold"],
+                        "properties": {
+                            "msg": {
+                                "type": "string",
+                                "description": "Message template for the penalty"
+                            },
+                            "threshold": {
+                                "type": "number",
+                                "description": "Threshold value for triggering the penalty"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
